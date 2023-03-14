@@ -10,7 +10,7 @@ namespace CarRental.Persistence.Services.Identity
 
         public IdentityService(IHttpContextAccessor context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context), $"{context} cannot be null.");
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public string GetUserEmail()
         {

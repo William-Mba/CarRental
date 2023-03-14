@@ -1,0 +1,127 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceTags": {
+            "value": {
+                "Environment": "Dev",
+                "Project": "Cars rental"
+            }
+        },
+        "location": {
+            "value": "canadacentral"
+        },
+        "locationName": {
+            "value": "Canada Central"
+        },
+        "appinsights_name": {
+            "value": "appi-cars-rental-dev"
+        },
+        "web_portal_name": {
+            "value": "webapp-cars-rental-portal-dev"
+        },
+        "web_api_name": {
+            "value": "webapp-cars-rental-api-dev"
+        },
+        "web_apps_server_farm_name": {
+            "value": "appsplan-cars-rental-dev"
+        },
+        "cosmos_database_account_name": {
+            "value": "cosmos-cars-rental-dev"
+        },
+        "cosmos_database_name": {
+            "value": "cars-rental"
+        },
+        "cosmos_database_car_container_name": {
+            "value": "car"
+        },
+        "cosmos_database_enquiry_container_name": {
+            "value": "enquiry"
+        },
+        "storage_account_name": {
+            "value": "stcarsrentaldev"
+        },
+        "keyvault": {
+            "value": {
+                "name": "kv-cars-rental-dev",
+                "enabledForDeployment": false,
+                "enabledForTemplateDeployment": false,
+                "enabledForDiskEncryption": false,
+                "enableSoftDelete": false,
+                "softDeleteRetentionInDays": 30
+            }
+        },
+        "service_bus_namespace_name": {
+            "value": "sb-cars-rental-dev"
+        },
+        "service_bus_queue_name": {
+            "value": "reservations"
+        },
+        "func_apps_server_farm_name": {
+            "value": "appsplan-carsrental-funcapp-dev"
+        },
+        "func_apps_storage_account_name": {
+            "value": "stcarsrentalfuncappdev"
+        },
+        "func_apps_name": {
+            "value": "func-cars-rental-dev"
+        },
+        "dotnetStack": {
+            "value": "dotnet"
+        },
+        "nodeStack": {
+            "value": "dotnet"
+        },
+        "netFrameworkVersion": {
+            "value": "v6.0"
+        },
+        "nodeVersion": {
+            "value": "~18"
+        },
+        "workspace_log_analytics":{
+            "value": "workspace-log-analytics-cars-rental-dev"
+        },        
+        "subscriptionId": {
+            "value": "289c1851-75a1-4574-b02f-ef7c608ddb78"
+        },
+        "emails_service_name": {
+            "value": "emails-service-cars-rental-dev"
+        },
+        "tagsByResource": {
+            "value": {}
+        },
+        "dataLocation": {
+            "value": "United States"
+        },
+        "sku": {
+            "value": "Basic"
+        },
+        "skuCode": {
+            "value": "B1"
+        },
+        "workerSize": {
+            "value": "0"
+        },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "use32BitWorkerProcess": {
+            "value": true
+        },
+        "alwaysOn": {
+            "value": true
+        },
+        "ftpsState": {
+            "value": "FtpsOnly"
+        },
+        "defaultExperience": {
+            "value": "Core (SQL)"
+        },
+        "isZoneRedundant": {
+            "value": "false"
+        }
+    }
+}

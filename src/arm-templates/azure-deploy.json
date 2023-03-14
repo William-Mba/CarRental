@@ -1,0 +1,931 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceTags": {
+            "type": "object",
+            "defaultValue": {
+                "Environment": "Dev",
+                "Project": "Cars Rental"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for the resources."
+            }
+        },
+        "appinsights_name": {
+            "defaultValue": "appi-cars-rental",
+            "type": "String"
+        },
+        "web_portal_name": {
+            "defaultValue": "app-cars-rental-portal",
+            "type": "String"
+        },
+        "web_api_name": {
+            "defaultValue": "app-cars-rental-api",
+            "type": "String"
+        },
+        "web_apps_server_farm_name": {
+            "defaultValue": "appscarsrental",
+            "type": "String"
+        },
+        "cosmos_database_account_name": {
+            "defaultValue": "cosmos-cars-rental",
+            "type": "String"
+        },
+        "cosmos_database_name": {
+            "defaultValue": "cars-rental",
+            "type": "String"
+        },
+        "cosmos_database_car_container_name": {
+            "defaultValue": "car",
+            "type": "String"
+        },
+        "cosmos_database_enquiry_container_name": {
+            "defaultValue": "enquiry",
+            "type": "String"
+        },
+        "storage_account_name": {
+            "defaultValue": "stcarsrental",
+            "type": "String"
+        },
+        "keyvault": {
+            "type": "Object",
+            "defaultValue": "kv-cars-rental",
+            "metadata": {
+                "description": "Required. Object with parameters for KeyVault"
+            }
+        },
+        "service_bus_namespace_name": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the Service Bus namespace"
+            }
+        },
+        "service_bus_queue_name": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the Queue"
+            }
+        },
+        "func_apps_server_farm_name": {
+            "defaultValue": "appsplan-carsrental-funcapp",
+            "type": "String"
+        },
+        "func_apps_storage_account_name": {
+            "defaultValue": "stcarsrentalfuncapp",
+            "type": "String"
+        },
+        "func_apps_name": {
+            "defaultValue": "func-cars-rental",
+            "type": "String"
+        },
+        "dotnetStack": {
+            "defaultvalue": "dotnet",
+            "type": "string"
+        },
+        "nodeStack": {
+            "defaultvalue": "dotnet",
+            "type": "string"
+        },
+        "netFrameworkVersion": {
+            "defaultvalue": "v6.0",
+            "type": "string"
+        },
+        "nodeVersion": {
+            "defaultvalue": "~18",
+            "type": "string"
+        },
+        "workspace_log_analytics": {
+            "defaultValue": "workspace-log-analytics-cars-rental",
+            "type": "string"
+        },
+        "api_management_name": {
+            "type": "string",
+            "defaultValue": "apim-cars-rental"
+        },
+        "api_management_publisher_email": {
+            "type": "string",
+            "defaultValue": "EMAIL"
+        },
+        "api_management_publisher_name": {
+            "type": "string",
+            "defaultValue": "PublisherName"
+        },
+        "notificationSenderEmail": {
+            "type": "string",
+            "defaultValue": "apimgmt-noreply@mail.windowsazure.com"
+        },
+        "customPropertiesObject": {
+            "type": "object",
+            "defaultValue": {
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls10": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls11": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Ssl30": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls10": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls11": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Ssl30": "False",
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Protocols.Server.Http2": "False"
+            }
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": "Az Subscription Main"
+        },
+        "emails_service_name": {
+            "type": "string",
+            "defaultValue": "emails-service-cars-rental"
+        },
+        "tagsByResource": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "dataLocation": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string"
+        },
+        "skuCode": {
+            "type": "string"
+        },
+        "workerSize": {
+            "type": "string"
+        },
+        "workerSizeId": {
+            "type": "string"
+        },
+        "numberOfWorkers": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "bool"
+        },
+        "use32BitWorkerProcess": {
+            "type": "bool"
+        },
+        "ftpsState": {
+            "type": "string"
+        },
+        "defaultExperience": {
+            "type": "string"
+        },
+        "isZoneRedundant": {
+            "type": "string"
+        },
+        "locationName": {
+            "type": "string"
+        }
+        
+    },
+    "variables": {
+        "environmentSettings": {
+        "test": {
+            "instanceSize": "Small",
+            "instanceCount": 1
+        },
+        "prod": {
+            "instanceSize": "Large",
+            "instanceCount": 4
+        }
+        },
+        "appInsightsRefName": "[concat('Microsoft.Insights/components/', parameters('appinsights_name'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "[parameters('workspace_log_analytics')]",
+            "resourceGroup": "[resourceGroup().name]",
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "apiVersion": "2020-08-01",
+                            "name": "[concat(parameters('workspace_log_analytics'), '-CCAN')]",
+                            "type": "Microsoft.OperationalInsights/workspaces",
+                            "location": "[parameters('location')]",
+                            "properties": {}
+                        }
+                    ]
+                }
+            }
+        },
+        {
+        "type": "Microsoft.Web/serverfarms",
+        "apiVersion": "2018-02-01",
+        "name": "[parameters('web_apps_server_farm_name')]",
+        "location": "[parameters('location')]",
+        "sku": {
+            "name": "D1",
+            "tier": "Shared",
+            "size": "D1",
+            "family": "D",
+            "capacity": 0
+        },
+        "kind": "app",
+        "properties": {
+            "perSiteScaling": false,
+            "maximumElasticWorkerCount": 1,
+            "isSpot": false,
+            "reserved": false,
+            "isXenon": false,
+            "hyperV": false,
+            "targetWorkerCount": 0,
+            "targetWorkerSizeId": 0
+        }
+        },
+        {
+        "type": "Microsoft.Web/sites",
+        "apiVersion": "2018-11-01",
+        "name": "[parameters('web_portal_name')]",
+        "location": "[parameters('location')]",
+        "tags": "[parameters('resourceTags')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Web/serverfarms', parameters('web_apps_server_farm_name'))]",
+            "[resourceId('Microsoft.Insights/components', parameters('appinsights_name'))]",
+            "[resourceId('Microsoft.ApiManagement/service', parameters('api_management_name'))]"
+        ],
+        "kind": "app",
+        "properties": {
+            "enabled": true,
+            "hostNameSslStates": [
+            {
+                "name": "[concat(parameters('web_portal_name'), '.azurewebsites.net')]",
+                "sslState": "Disabled",
+                "hostType": "Standard"
+            },
+            {
+                "name": "[concat(parameters('web_portal_name'), '.scm.azurewebsites.net')]",
+                "sslState": "Disabled",
+                "hostType": "Repository"
+            }
+            ],
+            "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('web_apps_server_farm_name'))]",
+            "reserved": false,
+            "isXenon": false,
+            "hyperV": false,
+            "siteConfig": {
+                "appSettings": [
+                    {
+                        "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                        "value": "[reference(variables('appInsightsRefName'), '2015-05-01').InstrumentationKey]"
+                    },
+                    {
+                        "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                        "value": "[reference(variables('appInsightsRefName'), '2015-05-01').ConnectionString]"
+                    },
+                    {
+                        "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+                        "value": "~2"
+                    },
+                    {
+                        "name": "XDT_MicrosoftApplicationInsights_Mode",
+                        "value": "default"
+                    },
+                    {
+                        "name": "XDT_MicrosoftApplicationInsights_NodeJS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                        "value": "[parameters('nodeVersion')]"
+                    }
+                ],
+                "metadata": [
+                    {
+                        "name": "CURRENT_STACK",
+                        "value": "[parameters('nodeStack')]"
+                    }
+                ],
+                "nodeVersion": "[parameters('nodeVersion')]"
+            },
+            "scmSiteAlsoStopped": false,
+            "clientAffinityEnabled": true,
+            "clientCertEnabled": false,
+            "hostNamesDisabled": false,
+            "containerSize": 0,
+            "dailyMemoryTimeQuota": 0,
+            "httpsOnly": false,
+            "redundancyMode": "None"
+        }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('web_portal_name'), '/', parameters('web_portal_name'), '.azurewebsites.net')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('web_portal_name'))]"
+            ],
+            "properties": {
+                "siteName": "app-cars-rental-portal",
+                "hostNameType": "Verified"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/siteextensions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('web_portal_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('web_portal_name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('web_api_name')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/', parameters('storage_account_name'))]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/', parameters('cosmos_database_account_name'))]",
+                "[resourceId('Microsoft.Web/serverfarms/', parameters('web_apps_server_farm_name'))]",
+                "[resourceId('Microsoft.Insights/components/', parameters('appinsights_name'))]",
+                "[resourceId('Microsoft.ServiceBus/Namespaces/', parameters('service_bus_namespace_name'))]"
+            ],
+            "kind": "app",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                {
+                    "name": "[concat(parameters('web_api_name'), '.azurewebsites.net')]",
+                    "sslState": "Disabled",
+                    "hostType": "Standard"
+                },
+                {
+                    "name": "[concat(parameters('web_api_name'), '.scm.azurewebsites.net')]",
+                    "sslState": "Disabled",
+                    "hostType": "Repository"
+                }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('web_apps_server_farm_name'))]",
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {
+                    "appSettings": [
+                    {
+                        "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                        "value": "[reference(variables('appInsightsRefName'), '2015-05-01').InstrumentationKey]"
+                    },
+                    {
+                        "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                        "value": "[reference(variables('appInsightsRefName'), '2015-05-01').ConnectionString]"
+                    },
+                    {
+                        "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+                        "value": "~3"
+                    },
+                    {
+                        "name": "XDT_MicrosoftApplicationInsights_Mode",
+                        "value": "Recommended"
+                    }            
+                    ],
+                    "metadata": [
+                    {
+                        "name": "CURRENT_STACK",
+                        "value": "[parameters('dotnetStack')]"
+                    }
+                    ],
+                    "netFrameworkVersion": "[parameters('netFrameworkVersion')]"
+                },
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": true,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": false,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('web_api_name'), '/', parameters('web_api_name'), '.azurewebsites.net')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "dependsOn": [
+                "[concat('Microsoft.Web/sites/', parameters('web_apps_server_farm_name'))]"
+            ],
+            "properties": {
+                "siteName": "app-cars-rental-api",
+                "hostNameType": "Verified"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/siteextensions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('web_api_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "dependsOn": [
+                "[concat('Microsoft.Web/sites/', parameters('web_apps_server_farm_name'))]"
+            ]
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2018-05-01-preview",
+            "name": "[parameters('appinsights_name')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', parameters('workspace_log_analytics'))]"
+            ],
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "Request_Source": "rest",
+                "RetentionInDays": 90,
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "apiVersion": "2020-03-01",
+            "kind": "GlobalDocumentDB",
+            "name": "[parameters('cosmos_database_account_name')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "properties": {
+                "locations": [
+                    {
+                        "id": "[concat(parameters('cosmos_database_account_name'), '-', parameters('location'))]",
+                        "failoverPriority": 0,
+                        "locationName": "[parameters('locationName')]"
+                    }
+                ],
+                "databaseAccountOfferType": "Standard",
+                "consistencyPolicy": {
+                    "defaultConsistencyLevel": "Session"
+                },
+                "backupPolicy": {
+                    "type": "Periodic",
+                    "periodicModeProperties": {
+                        "backupIntervalInMinutes": 240,
+                        "backupRetentionIntervalInHours": 8,
+                        "backupStorageRedundancy": "Geo"
+                    }
+                },
+                "isVirtualNetworkFilterEnabled": false,
+                "virtualNetworkRules": [],
+                "ipRules": [],
+                "dependsOn": [],
+                "enableMultipleWriteLocations": false,
+                "capabilities": [],
+                "enableFreeTier": true,
+                "capacity": {
+                    "totalThroughputLimit": 1000
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('cosmos_database_account_name'), '/', parameters('cosmos_database_name'))]",
+            "dependsOn": [ "[concat('Microsoft.DocumentDB/databaseAccounts/', parameters('cosmos_database_account_name'))]" ],
+            "properties": {
+                "resource": {
+                    "id": "cars-rental"
+                },
+                "options": { "throughput": "400" }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2020-06-01-preview",
+            "name": "[concat(parameters('cosmos_database_account_name'), '/', parameters('cosmos_database_name'), '/', parameters('cosmos_database_car_container_name'))]",
+            "dependsOn": [ "[concat('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/', parameters('cosmos_database_account_name'),'/', parameters('cosmos_database_name'))]" ],
+            "properties": {
+                "resource": {
+                "id": "[parameters('cosmos_database_car_container_name')]",
+                "indexingPolicy": {
+                    "indexingMode": "consistent",
+                    "automatic": true,
+                    "includedPaths": [
+                    {
+                        "path": "/*"
+                    }
+                    ],
+                    "excludedPaths": [
+                    {
+                        "path": "/\"_etag\"/?"
+                    }
+                    ]
+                },
+                "partitionKey": {
+                    "paths": [
+                    "/id"
+                    ],
+                    "kind": "Hash"
+                },
+                "uniqueKeyPolicy": {
+                    "uniqueKeys": []
+                },
+                "conflictResolutionPolicy": {
+                    "mode": "LastWriterWins",
+                    "conflictResolutionPath": "/_ts"
+                }
+                },
+                "options": {}
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2020-06-01-preview",
+            "name": "[concat(parameters('cosmos_database_account_name'), '/', parameters('cosmos_database_name'), '/', parameters('cosmos_database_enquiry_container_name'))]",
+            "dependsOn": [ "[concat('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/', parameters('cosmos_database_account_name'),'/', parameters('cosmos_database_name'))]" ],
+            "properties": {
+                "resource": {
+                "id": "[parameters('cosmos_database_enquiry_container_name')]",
+                "indexingPolicy": {
+                    "indexingMode": "consistent",
+                    "automatic": true,
+                    "includedPaths": [
+                    {
+                        "path": "/*"
+                    }
+                    ],
+                    "excludedPaths": [
+                    {
+                        "path": "/\"_etag\"/?"
+                    }
+                    ]
+                },
+                "partitionKey": {
+                    "paths": [
+                    "/id"
+                    ],
+                    "kind": "Hash"
+                },
+                "uniqueKeyPolicy": {
+                    "uniqueKeys": []
+                },
+                "conflictResolutionPolicy": {
+                    "mode": "LastWriterWins",
+                    "conflictResolutionPath": "/_ts"
+                }
+                },
+                "options": {}
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[parameters('storage_account_name')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": true,
+                "networkAcls": {
+                "bypass": "AzureServices",
+                "virtualNetworkRules": [],
+                "ipRules": [],
+                "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                "services": {
+                    "file": {
+                    "keyType": "Account",
+                    "enabled": true
+                    },
+                    "blob": {
+                    "keyType": "Account",
+                    "enabled": true
+                    }
+                },
+                "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[concat(parameters('storage_account_name'), '/default')]",
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('storage_account_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[concat(parameters('storage_account_name'), '/default')]",
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('storage_account_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/queueServices",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[concat(parameters('storage_account_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storage_account_name'))]"
+            ],
+            "properties": {
+                "cors": {
+                "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/tableServices",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[concat(parameters('storage_account_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storage_account_name'))]"
+            ],
+            "properties": {
+                "cors": {
+                "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[concat(parameters('storage_account_name'), '/default/car-images')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storage_account_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storage_account_name'))]"
+            ],
+            "properties": {
+                "defaultEncryptionScope": "$account-encryption-key",
+                "denyEncryptionScopeOverride": false,
+                "publicAccess": "Blob"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[concat(parameters('storage_account_name'), '/default/enquiry-files')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storage_account_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storage_account_name'))]"
+            ],
+            "properties": {
+                "defaultEncryptionScope": "$account-encryption-key",
+                "denyEncryptionScopeOverride": false,
+                "publicAccess": "None"
+            }
+        },
+        {
+            "name": "[parameters('keyvault').name]",
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "location": "[resourceGroup().location]",
+            "tags": "[parameters('resourceTags')]",
+            "properties": {
+                "enabledForDeployment": "[parameters('keyvault').enabledForDeployment]",
+                "enabledForTemplateDeployment": "[parameters('keyvault').enabledForTemplateDeployment]",
+                "enabledForDiskEncryption": "[parameters('keyvault').enabledForDiskEncryption]",
+                "enableSoftDelete": "[parameters('keyvault').enableSoftDelete]",
+                "softDeleteRetentionInDays": "[parameters('keyvault').softDeleteRetentionInDays]",
+                "tenantId": "[subscription().tenantId]",
+                "accessPolicies": [],
+                "sku": {
+                "name": "standard",
+                "family": "A"
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-04-01",
+            "name": "[parameters('service_bus_namespace_name')]",
+            "type": "Microsoft.ServiceBus/Namespaces",
+            "location": "[resourceGroup().location]",
+            "tags": "[parameters('resourceTags')]",
+            "sku": {
+                "name": "Standard"
+            },
+            "properties": {},
+            "resources": [
+                {
+                "apiVersion": "2017-04-01",
+                "name": "[parameters('service_bus_queue_name')]",
+                "type": "Queues",
+                "dependsOn": [
+                    "[concat('Microsoft.ServiceBus/namespaces/', parameters('service_bus_namespace_name'))]"
+                ],
+                "properties": {
+                    "lockDuration": "PT5M",
+                    "maxSizeInMegabytes": 1024,
+                    "requiresDuplicateDetection": false,
+                    "requiresSession": false,
+                    "defaultMessageTimeToLive": "P10675199DT2H48M5.4775807S",
+                    "deadLetteringOnMessageExpiration": false,
+                    "duplicateDetectionHistoryTimeWindow": "PT10M",
+                    "maxDeliveryCount": 10,
+                    "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
+                    "enablePartitioning": false,
+                    "enableExpress": false
+                }
+                }
+            ]
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2022-03-01",
+            "name": "[parameters('func_apps_server_farm_name')]",
+            "tags": "[parameters('resourceTags')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "name": "[parameters('func_apps_server_farm_name')]",
+                "workerSize": "[parameters('workerSize')]",
+                "workerSizeId": "[parameters('workerSizeId')]",
+                "numberOfWorkers": "[parameters('numberOfWorkers')]",
+                "zoneRedundant": false
+            },
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[parameters('func_apps_storage_account_name')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('resourceTags')]",
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": true,
+                "networkAcls": {
+                "bypass": "AzureServices",
+                "virtualNetworkRules": [],
+                "ipRules": [],
+                "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                "services": {
+                    "file": {
+                    "keyType": "Account",
+                    "enabled": true
+                    },
+                    "blob": {
+                    "keyType": "Account",
+                    "enabled": true
+                    }
+                },
+                "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "apiVersion": "2022-03-01",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('func_apps_name')]",
+            "location": "[parameters('location')]",
+            "kind": "functionapp",
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('func_apps_storage_account_name'))]",
+                "[concat('Microsoft.Communication/emailServices/', parameters('emails_service_name'))]",
+                "[concat('Microsoft.ServiceBus/Namespaces/', parameters('service_bus_namespace_name'))]",
+                "[concat('Microsoft.Insights/components/', parameters('appinsights_name'))]",
+                "[concat('Microsoft.Web/serverfarms/', parameters('func_apps_server_farm_name'))]",
+                "[concat('Microsoft.DocumentDB/databaseAccounts/', parameters('cosmos_database_account_name'))]"
+            ],
+            "properties": {
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Web/serverfarms/', parameters('func_apps_server_farm_name'))]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "WEBSITE_CONTENT_AZURE_FILE_CONNECTIONSTRING",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('func_apps_storage_account_name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('func_apps_storage_account_name')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTSHARE",
+                            "value": "[toLower(parameters('func_apps_name'))]"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "[parameters('dotnetStack')]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~4"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(variables('appInsightsRefName'), '2015-05-01').InstrumentationKey]"
+                        },
+                        {
+                            "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                            "value": "[reference(variables('appInsightsRefName'), '2015-05-01').ConnectionString]"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('func_apps_storage_account_name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('func_apps_storage_account_name')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        }
+                    ]
+                },
+                "cors": {
+                    "allowedOrigins": [
+                        "https://portal.azure.com"
+                    ]
+                },
+                "use32BitWorkerProcess": "[parameters('use32BitWorkerProcess')]",
+                "ftpsState": "[parameters('ftpsState')]",
+                "alwaysOn": "[parameters('alwaysOn')]",
+                "netFrameworkVersion": "[parameters('netFrameworkVersion')]"
+            }
+        },
+        {
+            "apiVersion": "2019-12-01",
+            "name": "[parameters('api_management_name')]",
+            "type": "Microsoft.ApiManagement/service",
+            "location": "[resourceGroup().location]",
+            "tags": "[parameters('resourceTags')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('web_api_name'))]"
+            ],
+            "sku": {
+                "name": "[parameters('sku').name]",
+                "capacity": "[parameters('sku').capacity]"
+            },
+            "properties": {
+                "publisherEmail": "[parameters('api_management_publisher_email')]",
+                "publisherName": "[parameters('api_management_publisher_name')]",
+                "notificationSenderEmail": "[parameters('notificationSenderEmail')]",
+                "hostnameConfigurations": [
+                    {
+                        "type": "Proxy",
+                        "hostName": "[concat(parameters('api_management_name'), '.azure-api.net')]",
+                        "negotiateClientCertificate": false,
+                        "defaultSslBinding": true
+                    }
+                ],
+                "customProperties": "[parameters('customPropertiesObject')]",
+                "virtualNetworkType": "None",
+                "disableGateway": false,
+                "apiVersionConstraint": {}
+
+            },
+
+            "identity": {
+                "type": "SystemAssigned"
+            }
+        },
+        {
+            "apiVersion": "2021-10-01-preview",
+            "name": "[parameters('emails_service_name')]",
+            "location": "global",
+            "type": "Microsoft.Communication/emailServices",
+            "tags": "[ if(contains(parameters('tagsByResource'), 'Microsoft.Communication/EmailServices'), parameters('tagsByResource')['Microsoft.Communication/EmailServices'], json('{}')) ]",
+            "properties": {
+                "dataLocation": "[parameters('dataLocation')]"
+            }
+        }
+
+    ]
+}
