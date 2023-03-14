@@ -23,7 +23,7 @@ Cars Rental is a fake car rental company which used Microsoft Azure cloud servic
 
 ## Solution architecture
 
-Below diagram presents Cars Rental Car Rental system architecture. 
+Below diagram presents Car Rental Solution architecture. 
 
 <p align="center">
 <img src="images/CarsRental-CloudArchitecture.png?raw=true" alt="Image not found"/>
@@ -59,9 +59,9 @@ Azure Function Apps are serverless services available in the Azure cloud. They a
 Azure Service Bus service is a cloud messaging service. With Azure Service Bus we can build reliable and elastic cloud apps with messaging. In the Cars Rental solution, Azure Service Bus queues were used to queue car's reservation confirmations to send emails to customers. Once car's reservation is completed in the web portal, information is passed to the API and saved in the database. After this process, there is new message sent to the queue. Then Azure Function is triggered and new email is sent using Azure SendGrid Service.
 
 
-## Azure SendGrid
+## Azure Emails Service
 
-Azure SendGrid service enables sending customized emails. It is great because we can create email templates but also it provides SDK that we can use to implement emails sending in the source code. Up to 25.000 emails, it is free.
+Azure Communication Services Email REST APIs and SDKs is used to send an email messages from service applications.
 
 
 ## Azure Cosmos DB
