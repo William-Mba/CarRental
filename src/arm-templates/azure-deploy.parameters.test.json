@@ -27,7 +27,7 @@
             "value": "appsplan-cars-rental-test"
         },
         "cosmos_database_account_name": {
-            "value": "cosmos-cars-rental-test"
+            "value": "cosmosdb-cars-rental-test"
         },
         "cosmos_database_name": {
             "value": "cars-rental"
@@ -39,7 +39,7 @@
             "value": "enquiry"
         },
         "storage_account_name": {
-            "value": "stcarsrentaltest"
+            "value": "storcarsrentaltest"
         },
         "keyvault": {
             "value": {
@@ -61,7 +61,7 @@
             "value": "appsplan-cars-rental-funcapp-test"
         },
         "func_apps_storage_account_name": {
-            "value": "stcarsrentalfuncapptest"
+            "value": "storcarsrentalfuncapptest"
         },
         "func_apps_name": {
             "value": "func-cars-rental-test"
@@ -122,6 +122,18 @@
         },
         "isZoneRedundant": {
             "value": "false"
+        },
+        "api_management_name": {
+            "value": "apimgmt-cars-rental-test"
+        },
+        "api_management_publisher_email": {
+            "value": "EMAIL"
+        },
+        "api_management_publisher_name": {
+            "value": "PublisherName"
+        },
+        "notificationSenderEmail": {
+            "value": "apimgmt-noreply@mail.windowsazure.com"
         }
     }
 }
