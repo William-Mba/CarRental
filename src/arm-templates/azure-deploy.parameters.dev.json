@@ -15,7 +15,7 @@
             "value": "Canada Central"
         },
         "appinsights_name": {
-            "value": "appi-cars-rental-dev"
+            "value": "appinsights-cars-rental-dev"
         },
         "web_app_name": {
             "value": "webapp-cars-rental-dev"
@@ -114,9 +114,6 @@
         "ftpsState": {
             "value": "FtpsOnly"
         },
-        "defaultExperience": {
-            "value": "Core (SQL)"
-        },
         "api_management_name": {
             "value": "apimgmt-cars-rental-dev"
         },
@@ -131,6 +128,9 @@
         },
         "tier": {
             "value": "Developer"
+        },
+        "enableFreeTier": {
+            "value": false
         },
         "capacity": {
             "value": "1"

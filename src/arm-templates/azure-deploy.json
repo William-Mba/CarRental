@@ -162,6 +162,9 @@
         "tier": {
             "type": "string"
         },
+        "enableFreeTier": {
+            "type": "bool"
+        },
         "capacity": {
             "type": "string"
         },
@@ -475,7 +478,7 @@
                 "dependsOn": [],
                 "enableMultipleWriteLocations": false,
                 "capabilities": [],
-                "enableFreeTier": true,
+                "enableFreeTier": "[parameters('enableFreeTier')]",
                 "capacity": {
                     "totalThroughputLimit": 1000
                 }
@@ -835,7 +838,7 @@
                 "siteConfig": {
                     "appSettings": [
                         {
-                            "name": "WEBSITE_CONTENT_AZURE_FILE_CONNECTIONSTRING",
+                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                             "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('func_apps_storage_account_name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('func_apps_storage_account_name')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
                         },
                         {

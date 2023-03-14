@@ -15,7 +15,7 @@
             "value": "Canada Central"
         },
         "appinsights_name": {
-            "value": "appi-cars-rental-test"
+            "value": "appinsights-cars-rental-test"
         },
         "web_app_name": {
             "value": "webapp-cars-rental-test"
@@ -128,6 +128,9 @@
         },
         "tier": {
             "value": "Developer"
+        },
+        "enableFreeTier": {
+            "value": true
         },
         "capacity": {
             "value": "1"
