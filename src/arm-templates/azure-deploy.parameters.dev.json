@@ -17,11 +17,11 @@
         "appinsights_name": {
             "value": "appi-cars-rental-dev"
         },
-        "web_portal_name": {
-            "value": "webapp-cars-rental-portal-dev"
+        "web_app_name": {
+            "value": "webapp-cars-rental-dev"
         },
         "web_api_name": {
-            "value": "webapp-cars-rental-api-dev"
+            "value": "webapi-cars-rental-dev"
         },
         "web_apps_server_farm_name": {
             "value": "appsplan-cars-rental-dev"
@@ -121,7 +121,7 @@
             "value": "apimgmt-cars-rental-dev"
         },
         "api_management_publisher_email": {
-            "value": "EMAIL"
+            "value": "carsrental@wgmconsulting.ca"
         },
         "api_management_publisher_name": {
             "value": "PublisherName"

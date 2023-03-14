@@ -17,11 +17,11 @@
         "appinsights_name": {
             "value": "appi-cars-rental-test"
         },
-        "web_portal_name": {
-            "value": "webapp-cars-rental-portal-test"
+        "web_app_name": {
+            "value": "webapp-cars-rental-test"
         },
         "web_api_name": {
-            "value": "webapp-cars-rental-api-test"
+            "value": "webapi-cars-rental-test"
         },
         "web_apps_server_farm_name": {
             "value": "appsplan-cars-rental-test"
@@ -118,13 +118,13 @@
             "value": "apimgmt-cars-rental-test"
         },
         "api_management_publisher_email": {
-            "value": "EMAIL"
+            "value": "carsrental@wgmconsulting.ca"
         },
         "api_management_publisher_name": {
             "value": "PublisherName"
         },
         "notificationSenderEmail": {
-            "value": "apimgmt-noreply@mail.windowsazure.com"
+            "value": "carsrental-noreply@mail.windowsazure.com"
         },
         "tier": {
             "value": "Developer"

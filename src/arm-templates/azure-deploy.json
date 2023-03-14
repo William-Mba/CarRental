@@ -20,7 +20,7 @@
             "defaultValue": "appi-cars-rental",
             "type": "String"
         },
-        "web_portal_name": {
+        "web_app_name": {
             "defaultValue": "app-cars-rental-portal",
             "type": "String"
         },
@@ -109,7 +109,7 @@
         },
         "api_management_publisher_email": {
             "type": "string",
-            "defaultValue": "EMAIL"
+            "defaultValue": "carsrental@wgmconsulting.ca"
         },
         "api_management_publisher_name": {
             "type": "string",
@@ -199,7 +199,7 @@
                     "resources": [
                         {
                             "apiVersion": "2020-08-01",
-                            "name": "[concat(parameters('workspace_log_analytics'), '-CCAN')]",
+                            "name": "[parameters('workspace_log_analytics')]",
                             "type": "Microsoft.OperationalInsights/workspaces",
                             "location": "[parameters('location')]",
                             "properties": {}
@@ -235,7 +235,7 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2018-11-01",
-            "name": "[parameters('web_portal_name')]",
+            "name": "[parameters('web_app_name')]",
             "location": "[parameters('location')]",
             "tags": "[parameters('resourceTags')]",
             "dependsOn": [
@@ -248,12 +248,12 @@
                 "enabled": true,
                 "hostNameSslStates": [
                 {
-                    "name": "[concat(parameters('web_portal_name'), '.azurewebsites.net')]",
+                    "name": "[concat(parameters('web_app_name'), '.azurewebsites.net')]",
                     "sslState": "Disabled",
                     "hostType": "Standard"
                 },
                 {
-                    "name": "[concat(parameters('web_portal_name'), '.scm.azurewebsites.net')]",
+                    "name": "[concat(parameters('web_app_name'), '.scm.azurewebsites.net')]",
                     "sslState": "Disabled",
                     "hostType": "Repository"
                 }
@@ -310,11 +310,11 @@
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('web_portal_name'), '/', parameters('web_portal_name'), '.azurewebsites.net')]",
+            "name": "[concat(parameters('web_app_name'), '/', parameters('web_app_name'), '.azurewebsites.net')]",
             "location": "[parameters('location')]",
             "tags": "[parameters('resourceTags')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('web_portal_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('web_app_name'))]"
             ],
             "properties": {
                 "siteName": "app-cars-rental-portal",
@@ -324,11 +324,11 @@
         {
             "type": "Microsoft.Web/sites/siteextensions",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('web_portal_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
+            "name": "[concat(parameters('web_app_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
             "location": "[parameters('location')]",
             "tags": "[parameters('resourceTags')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('web_portal_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('web_app_name'))]"
             ]
         },
         {
@@ -444,7 +444,7 @@
         },
         {
             "type": "Microsoft.DocumentDB/databaseAccounts",
-            "apiVersion": "2020-03-01",
+            "apiVersion": "2021-10-15",
             "kind": "GlobalDocumentDB",
             "name": "[parameters('cosmos_database_account_name')]",
             "location": "[parameters('location')]",
@@ -483,7 +483,7 @@
         },
         {
             "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
-            "apiVersion": "2020-03-01",
+            "apiVersion": "2021-10-15",
             "name": "[concat(parameters('cosmos_database_account_name'), '/', parameters('cosmos_database_name'))]",
             "dependsOn": [ 
                 "[resourceId('Microsoft.DocumentDB/databaseAccounts/', parameters('cosmos_database_account_name'))]" 
@@ -492,7 +492,9 @@
                 "resource": {
                     "id": "cars-rental"
                 },
-                "options": { "throughput": "400" }
+                "options": { 
+                    "throughput": 400 
+                }
             }
         },
         {
@@ -835,10 +837,6 @@
                         {
                             "name": "WEBSITE_CONTENT_AZURE_FILE_CONNECTIONSTRING",
                             "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('func_apps_storage_account_name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('func_apps_storage_account_name')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
-                        },
-                        {
-                            "name": "AZURE_COMMUNICATION_CONNECTION_STRING",
-                            "value": "[reference(concat('Microsoft.Communication/emailServices/',parameters('emails_service_name')),'2021-10-01-preview').ConnectionString]"
                         },
                         {
                             "name": "WEBSITE_CONTENTSHARE",
