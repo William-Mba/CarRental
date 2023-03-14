@@ -26,4 +26,4 @@ az deployment group create `
     --parameters "azure-deploy.parameters.$Environment.json"
 
 ##TODO Put this message in an if statement
-Write-Host("::::::::::::::::::::::: Resources successfully deployed to $Environment :::::::::::::::::::::::")
+Write-Host("::::::::::::::::::::::: Successfully deployed resources to $Environment :::::::::::::::::::::::")

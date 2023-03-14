@@ -41,7 +41,7 @@ Security is a very important aspect of every project. Secrets and credentials sh
 
 ## Azure Application Insights
 
-Tracking issues in cloud solutions can be challenging. Collecting logs and detecting bugs can be hard. This is why it is good to use an Application Performance Management service like Azure Application Insights. With this Azure cloud service, we can log all events and errors that occure in our solution. Azure Application Insights provides SDKs in many languages (like C# oraz Java) so we can easily integrate them with our application. All logs are then available in the Azure portal, where rich dashboards are displayed with collected log data.
+Tracking issues in cloud solutions can be challenging. Collecting logs and detecting bugs can be hard. This is why it is good to use an Application Performance Management service like Azure Application Insights. With this Azure cloud service, we can log all events and errors that occure in our solution. Azure Application Insights provides SDKs in many languages (like C# or Java) so we can easily integrate them with our application. All logs are then available in the Azure portal, where rich dashboards are displayed with collected log data.
 
 
 ## Azure Web Apps with App Service Plans
@@ -61,7 +61,7 @@ Azure Service Bus service is a cloud messaging service. With Azure Service Bus w
 
 ## Azure Emails Service
 
-Azure Communication Services Email REST APIs and SDKs is used to send an email messages from service applications.
+Azure Communication Services Email REST APIs and SDKs is used to send an email messages from Cars Rental Azure Function Apps.
 
 
 ## Azure Cosmos DB
