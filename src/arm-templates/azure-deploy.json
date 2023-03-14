@@ -844,6 +844,10 @@
                             "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('func_apps_storage_account_name'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('func_apps_storage_account_name')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
                         },
                         {
+                            "name": "AZURE_COMMUNICATION_CONNECTION_STRING",
+                            "value": "[reference(concat('Microsoft.Communication/emailServices/',parameters('emails_service_name')),'2021-10-01-preview').ConnectionString]"
+                        },
+                        {
                             "name": "WEBSITE_CONTENTSHARE",
                             "value": "[toLower(parameters('func_apps_name'))]"
                         },
