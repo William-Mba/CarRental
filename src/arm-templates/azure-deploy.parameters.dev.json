@@ -39,7 +39,7 @@
             "value": "enquiry"
         },
         "storage_account_name": {
-            "value": "storcarsrentaldev"
+            "value": "storagewebapidev"
         },
         "keyvault": {
             "value": {
@@ -61,7 +61,7 @@
             "value": "appsplan-carsrental-funcapp-dev"
         },
         "func_apps_storage_account_name": {
-            "value": "storcarsrentalfuncappdev"
+            "value": "storagefuncapptestdev"
         },
         "func_apps_name": {
             "value": "func-cars-rental-dev"
@@ -70,7 +70,7 @@
             "value": "dotnet"
         },
         "nodeStack": {
-            "value": "dotnet"
+            "value": "node"
         },
         "netFrameworkVersion": {
             "value": "v6.0"
@@ -86,9 +86,6 @@
         },
         "emails_service_name": {
             "value": "emails-service-cars-rental-dev"
-        },
-        "tagsByResource": {
-            "value": {}
         },
         "dataLocation": {
             "value": "United States"
@@ -120,9 +117,6 @@
         "defaultExperience": {
             "value": "Core (SQL)"
         },
-        "isZoneRedundant": {
-            "value": "false"
-        },
         "api_management_name": {
             "value": "apimgmt-cars-rental-dev"
         },
@@ -134,6 +128,29 @@
         },
         "notificationSenderEmail": {
             "value": "apimgmt-noreply@mail.windowsazure.com"
+        },
+        "tier": {
+            "value": "Developer"
+        },
+        "capacity": {
+            "value": "1"
+        },
+        "customProperties": {
+            "value": {
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls11": false,
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls10": false,
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls11": false,
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls10": false,
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Ssl30": false,
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Protocols.Server.Http2": false,
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168": false,
+                "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Ssl30": false
+            }
+        },
+        "identity": {
+            "value": {
+                "type": "SystemAssigned"
+            }
         }
     }
 }
