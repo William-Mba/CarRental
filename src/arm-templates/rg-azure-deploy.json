@@ -3,16 +3,19 @@
     "contentVersion": "1.0.0.1",
     "parameters": {
         "rgName": {
-            "defaultValue": "wgm-domain-rg",
+            "defaultValue": "car-rental-rg",
             "type": "string"
         },
         "rgLocation": {
             "defaultValue": "canadacentral",
             "type": "string"
         },
-        "tags": {
+        "resourceTags": {
             "type": "object",
-            "defaultValue": {}
+            "defaultValue": {
+                "Environment": "Dev",
+                "Project": "Cars Rental"
+            }
         }
     },
     "variables": {},
@@ -23,7 +26,7 @@
             "location": "[parameters('rgLocation')]",
             "name": "[parameters('rgName')]",
             "properties": {},
-            "tags": "[parameters('tags')]"
+            "tags": "[parameters('resourceTags')]"
         }
     ],
     "outputs": {}

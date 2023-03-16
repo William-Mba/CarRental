@@ -21,7 +21,7 @@
             "value": "webapp-cars-rental-dev"
         },
         "web_api_name": {
-            "value": "webapi-cars-rental-dev"
+            "value": "webapp-api-cars-rental-dev"
         },
         "web_apps_server_farm_name": {
             "value": "appsplan-cars-rental-dev"
@@ -39,7 +39,7 @@
             "value": "enquiry"
         },
         "storage_account_name": {
-            "value": "storagewebapidev"
+            "value": "storcarsrentaldev"
         },
         "keyvault": {
             "value": {
@@ -61,10 +61,10 @@
             "value": "appsplan-carsrental-funcapp-dev"
         },
         "func_apps_storage_account_name": {
-            "value": "storagefuncapptestdev"
+            "value": "storfuncarsrentaldev"
         },
         "func_apps_name": {
-            "value": "func-cars-rental-dev"
+            "value": "carsrental-funcapp-dev"
         },
         "dotnetStack": {
             "value": "dotnet"
@@ -81,9 +81,6 @@
         "workspace_log_analytics":{
             "value": "workspace-log-analytics-cars-rental-dev"
         },        
-        "subscriptionId": {
-            "value": "289c1851-75a1-4574-b02f-ef7c608ddb78"
-        },
         "emails_service_name": {
             "value": "emails-service-cars-rental-dev"
         },
@@ -115,7 +112,7 @@
             "value": "FtpsOnly"
         },
         "api_management_name": {
-            "value": "apimgmt-cars-rental-dev"
+            "value": "apimagnt-carsrental-dev"
         },
         "api_management_publisher_email": {
             "value": "carsrental@wgmconsulting.ca"
