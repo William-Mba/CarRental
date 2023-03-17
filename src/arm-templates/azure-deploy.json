@@ -105,7 +105,7 @@
         },
         "api_management_name": {
             "type": "string",
-            "defaultValue": "apimagnt-cars-rental"
+            "defaultValue": "apimanagement-carsrental"
         },
         "api_management_publisher_email": {
             "type": "string",
@@ -312,30 +312,6 @@
             }
         },
         {
-            "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('web_app_name'), '/', parameters('web_app_name'), '.azurewebsites.net')]",
-            "location": "[parameters('location')]",
-            "tags": "[parameters('resourceTags')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('web_app_name'))]"
-            ],
-            "properties": {
-                "siteName": "app-cars-rental-portal",
-                "hostNameType": "Verified"
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/siteextensions",
-            "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('web_app_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
-            "location": "[parameters('location')]",
-            "tags": "[parameters('resourceTags')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('web_app_name'))]"
-            ]
-        },
-        {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2018-11-01",
             "name": "[parameters('web_api_name')]",
@@ -405,30 +381,6 @@
             }
         },
         {
-            "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('web_api_name'), '/', parameters('web_api_name'), '.azurewebsites.net')]",
-            "location": "[parameters('location')]",
-            "tags": "[parameters('resourceTags')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms/', parameters('web_apps_server_farm_name'))]"
-            ],
-            "properties": {
-                "siteName": "[parameters('web_api_name')]",
-                "hostNameType": "Verified"
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/siteextensions",
-            "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('web_api_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
-            "location": "[parameters('location')]",
-            "tags": "[parameters('resourceTags')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms/', parameters('web_apps_server_farm_name'))]"
-            ]
-        },
-        {
             "type": "microsoft.insights/components",
             "apiVersion": "2018-05-01-preview",
             "name": "[parameters('appinsights_name')]",
@@ -490,7 +442,7 @@
             "apiVersion": "2021-10-15",
             "name": "[concat(parameters('cosmos_database_account_name'), '/', parameters('cosmos_database_name'))]",
             "dependsOn": [ 
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/', parameters('cosmos_database_account_name'))]" 
+                "[parameters('cosmos_database_account_name')]" 
             ],
             "properties": {
                 "resource": {

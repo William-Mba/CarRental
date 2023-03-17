@@ -9,25 +9,25 @@
             }
         },
         "location": {
-            "value": "canadacentral"
+            "value": "westus"
         },
         "locationName": {
-            "value": "Canada Central"
+            "value": "West US"
         },
         "appinsights_name": {
-            "value": "appinsights-cars-rental-test"
+            "value": "appinsights-carsrental-test"
         },
         "web_app_name": {
-            "value": "webapp-cars-rental-test"
+            "value": "webapp-carsrental-test"
         },
         "web_api_name": {
-            "value": "webapp-api-cars-rental-test"
+            "value": "webapp-api-carsrental-test"
         },
         "web_apps_server_farm_name": {
-            "value": "appsplan-cars-rental-test"
+            "value": "appsplan-carsrental-test"
         },
         "cosmos_database_account_name": {
-            "value": "cosmosdb-cars-rental-test"
+            "value": "cosmosdb-carsrental-test"
         },
         "cosmos_database_name": {
             "value": "cars-rental"
@@ -43,7 +43,7 @@
         },
         "keyvault": {
             "value": {
-                "name": "kv-cars-rental-test",
+                "name": "kv-carsrental-test",
                 "enabledForDeployment": false,
                 "enabledForTemplateDeployment": false,
                 "enabledForDiskEncryption": false,
@@ -52,13 +52,13 @@
             }
         },
         "service_bus_namespace_name": {
-            "value": "sb-cars-rental-test"
+            "value": "sb-carsrental-test"
         },
         "service_bus_queue_name": {
             "value": "reservations"
         },
         "func_apps_server_farm_name": {
-            "value": "appsplan-cars-rental-funcapp-test"
+            "value": "appsplan-carsrental-funcapp-test"
         },
         "func_apps_storage_account_name": {
             "value": "carsrentalfuncstortest"
@@ -79,10 +79,10 @@
             "value": "~18"
         },
         "workspace_log_analytics":{
-            "value": "workspace-log-analytics-cars-rental-test"
+            "value": "workspace-log-analytics-carsrental-test"
         },        
         "emails_service_name": {
-            "value": "emails-service-cars-rental-test"
+            "value": "emails-service-carsrental-test"
         },
         "dataLocation": {
             "value": "United States"
@@ -112,7 +112,7 @@
             "value": "FtpsOnly"
         },
         "api_management_name": {
-            "value": "apimagnt-carsrental-test"
+            "value": "apimanagement-carsrental-test"
         },
         "api_management_publisher_email": {
             "value": "carsrental@wgmconsulting.ca"

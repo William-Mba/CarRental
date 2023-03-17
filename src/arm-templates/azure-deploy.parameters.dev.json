@@ -9,25 +9,25 @@
             }
         },
         "location": {
-            "value": "canadacentral"
+            "value": "westus"
         },
         "locationName": {
             "value": "Canada Central"
         },
         "appinsights_name": {
-            "value": "appinsights-cars-rental-dev"
+            "value": "appinsights-carsrental-dev"
         },
         "web_app_name": {
-            "value": "webapp-cars-rental-dev"
+            "value": "webapp-carsrental-dev"
         },
         "web_api_name": {
-            "value": "webapp-api-cars-rental-dev"
+            "value": "webapp-api-carsrental-dev"
         },
         "web_apps_server_farm_name": {
-            "value": "appsplan-cars-rental-dev"
+            "value": "appsplan-carsrental-dev"
         },
         "cosmos_database_account_name": {
-            "value": "cosmosdb-cars-rental-dev"
+            "value": "cosmosdb-carsrental-dev"
         },
         "cosmos_database_name": {
             "value": "cars-rental"
@@ -43,7 +43,7 @@
         },
         "keyvault": {
             "value": {
-                "name": "kv-cars-rental-dev",
+                "name": "kv-carsrental-dev",
                 "enabledForDeployment": false,
                 "enabledForTemplateDeployment": false,
                 "enabledForDiskEncryption": false,
@@ -52,7 +52,7 @@
             }
         },
         "service_bus_namespace_name": {
-            "value": "sb-cars-rental-dev"
+            "value": "sb-carsrental-dev"
         },
         "service_bus_queue_name": {
             "value": "reservations"
@@ -79,10 +79,10 @@
             "value": "~18"
         },
         "workspace_log_analytics":{
-            "value": "workspace-log-analytics-cars-rental-dev"
+            "value": "workspace-log-analytics-carsrental-dev"
         },        
         "emails_service_name": {
-            "value": "emails-service-cars-rental-dev"
+            "value": "emails-service-carsrental-dev"
         },
         "dataLocation": {
             "value": "United States"
@@ -112,7 +112,7 @@
             "value": "FtpsOnly"
         },
         "api_management_name": {
-            "value": "apimagnt-carsrental-dev"
+            "value": "apimanagement-carsrental-dev"
         },
         "api_management_publisher_email": {
             "value": "carsrental@wgmconsulting.ca"

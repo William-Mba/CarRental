@@ -3,11 +3,11 @@
     "contentVersion": "1.0.0.1",
     "parameters": {
         "rgName": {
-            "defaultValue": "car-rental-rg",
+            "defaultValue": "carsrental-rg",
             "type": "string"
         },
         "rgLocation": {
-            "defaultValue": "canadacentral",
+            "defaultValue": "westus",
             "type": "string"
         },
         "resourceTags": {

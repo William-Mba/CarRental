@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "rgName": {
-            "value": "cars-rental-rg-test"
+            "value": "carsrental-rg-test"
         },
         "rgLocation": {
-            "value": "canadacentral"
+            "value": "westus"
         },
         "resourceTags": {
             "value": {
